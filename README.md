@@ -34,3 +34,37 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+# to generate dynamic metaData
+
+# add this to any page based on the page
+# export async function generateMetadata({params}){
+
+    const {id}=params;
+    const resource=await getResourceById({id})
+    return {
+        title,
+        description:seoDescription,
+        others:{
+            "og:title":title,
+            "og:image":resource.image,
+            "or:description":seoDescription,
+            "twitter:title":title,
+            "twitter:description":seoDescription
+        }
+    }
+
+}
+
+
+# file base dynamic metadata having higher priority
+# add all the resources in the app folder with same name as above and it will pick automatically
+
+# to override react version have to add
+override:{
+    "react":"$react",
+    "react-dom":"$react-dom"
+}
+
+# above code in the package json before dependencies
+
