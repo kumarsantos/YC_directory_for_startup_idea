@@ -3,14 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-interface Auther {
+interface Author {
   name?: string;
   _id: string;
+  imageUrl?: string;
 }
-interface StartupTypeCard {
+export interface StartupTypeCard {
   views: number;
   createdAt: string;
-  author: Auther;
+  author: Author;
   imageUrl?: string;
   title: string;
   category: string;
@@ -18,11 +19,16 @@ interface StartupTypeCard {
   description: string;
 }
 
+export interface PostProps {
+  authorInfo: Author;
+  startupInfo: StartupTypeCard;
+}
+
 const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   const {
     views,
     createdAt,
-    author: { _id: authorId, name },
+    author: { _id: authorId, name, imageUrl: profileImg } = {},
     title,
     category,
     _id,
@@ -49,9 +55,9 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
           </Link>
         </div>
         <Link href={`/user/${authorId}`}>
-          {imageUrl ? (
+          {profileImg ? (
             <Image
-              src={imageUrl}
+              src={profileImg}
               alt="author-img"
               height={100}
               width={100}

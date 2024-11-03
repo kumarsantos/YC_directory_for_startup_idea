@@ -1,5 +1,15 @@
-import StartupCard from "@/components/StartupCard";
+import StartupCard, { PostProps } from "@/components/StartupCard";
 import SearchFrom from "../../components/SearchFrom";
+
+type QueryParam = string | null | undefined;
+
+const getStartups = async (query: QueryParam) => {
+  const response = await fetch(
+    "http://localhost:3000/api/startups?searchKey=" + query
+  );
+  const result = await response.json();
+  return result?.data;
+};
 
 export default async function Home({
   searchParams,
@@ -7,20 +17,8 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const query = (await searchParams).query;
+  const posts = await getStartups(query);
 
-  const posts = [
-    {
-      createdAt: new Date(),
-      views: 55,
-      author: { _id: 1, name: "Santosh" },
-      _id: 23,
-      description: "This is a description",
-      imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO8AAxAr9ZNr9JCwn2QZ35rSWWuiayhh0ayQ&s",
-      category: "Robots",
-      title: "We Robots",
-    },
-  ];
   return (
     <>
       <section className="pink_container">
@@ -40,7 +38,12 @@ export default async function Home({
         </p>
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts?.map((post) => <StartupCard key={post?._id} post={post} />)
+            posts?.map((post: PostProps) => (
+              <StartupCard
+                key={post?.startupInfo?._id}
+                post={{ ...post?.startupInfo, author: post?.authorInfo }}
+              />
+            ))
           ) : (
             <p className="no-results">No startups found</p>
           )}
