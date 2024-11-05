@@ -5,11 +5,12 @@ type QueryParam = string | null | undefined;
 
 const getStartups = async (query: QueryParam) => {
   const response = await fetch(
-    "https://yc-directory-for-startup-idea-hciy-2th385bil.vercel.app/api/startups?searchKey=" + query
+    "https://yc-directory-for-startup-idea-hciy.vercel.app/api/startups?searchKey=" + query
   );
   const result = await response.json();
   return result?.data;
 };
+
 
 export default async function Home({
   searchParams,

@@ -56,7 +56,7 @@ const md = markdownit({
 
 const getStartups = async (id: string) => {
   const response = await fetch(
-    `https://yc-directory-for-startup-idea-hciy-2th385bil.vercel.app/api/startups?startupId=${id}`
+    `https://yc-directory-for-startup-idea-hciy.vercel.app/api/startups?startupId=${id}`
   );
   const result = await response.json();
   return result?.data;
