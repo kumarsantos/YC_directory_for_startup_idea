@@ -7,7 +7,7 @@ import React, { Suspense } from "react";
 
 const getProfileDetails = async (id: string) => {
   const response = await fetch(
-    `http://localhost:3000/api/authors?authorId=${id}`
+    `https://yc-directory-for-startup-idea-hciy-2th385bil.vercel.app/api/authors?authorId=${id}`
   );
   const result = await response.json();
   return result?.data;

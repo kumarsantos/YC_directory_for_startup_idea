@@ -4,7 +4,7 @@ import Ping from "./Ping";
 type QueryParam = string | null | undefined;
 
 const getViews = async (id: QueryParam) => {
-  const response = await fetch("http://localhost:3000/api/views", {
+  const response = await fetch("https://yc-directory-for-startup-idea-hciy-2th385bil.vercel.app/api/views", {
     method: "PUT",
     body: JSON.stringify({ id }),
   });

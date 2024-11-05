@@ -5,7 +5,7 @@ type QueryParam = string | null | undefined;
 
 const getStartups = async (query: QueryParam) => {
   const response = await fetch(
-    "http://localhost:3000/api/startups?searchKey=" + query
+    "https://yc-directory-for-startup-idea-hciy-2th385bil.vercel.app/api/startups?searchKey=" + query
   );
   const result = await response.json();
   return result?.data;
