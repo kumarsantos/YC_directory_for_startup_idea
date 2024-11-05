@@ -12,12 +12,16 @@ export async function GET(req: NextRequest) {
     const params = new URLSearchParams(parsedUrl.search);
     let startupId = params.get("startupId");
     let searchKey = params.get("searchKey");
+    let userId = params.get("userId");
 
     if (searchKey === "undefined") {
       searchKey = null;
     }
     if (startupId === "undefined") {
       startupId = null;
+    }
+    if (userId === "undefined") {
+      userId = null;
     }
 
     let filter = {};
@@ -27,6 +31,10 @@ export async function GET(req: NextRequest) {
       filter = {
         slug: { $regex: new RegExp(searchKey, "i") },
         title: { $regex: new RegExp(searchKey, "i") },
+      };
+    } else if (userId) {
+      filter = {
+        author: userId,
       };
     }
 

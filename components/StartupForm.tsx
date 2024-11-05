@@ -24,7 +24,7 @@ const StartupForm = () => {
         description: formData.get("description") as string,
         category: formData.get("category") as string,
         imageUrl: formData.get("imageUrl"),
-        pitch:JSON.stringify(pitch),
+        pitch: JSON.stringify(pitch),
       };
 
       await formSchema.parseAsync(formValue);
@@ -36,7 +36,7 @@ const StartupForm = () => {
           title: "Success",
           description: "Your startup pitch has been created successfully",
         });
-        router.push(`/startup/${result?._id}`);
+        router.push(`/startup/${result?._doc?._id}`);
       }
       return result;
     } catch (error) {

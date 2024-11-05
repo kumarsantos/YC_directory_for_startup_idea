@@ -9,15 +9,13 @@ export async function GET(req: NextRequest) {
     //Extracting query params from url
     const parsedUrl = new URL(req.url);
     const params = new URLSearchParams(parsedUrl.search);
-    const startupId = params.get("startupId");
+    const authorId = params.get("authorId");
 
     let filter = {};
-    if (startupId) {
-      filter = { _id: startupId };
+    if (authorId) {
+      filter = { _id: authorId };
     }
     const authors = await Authors.find(filter);
-
-    console.log({ authors });
 
     if (authors?.length <= 0) {
       return NextResponse.json(

@@ -2,6 +2,8 @@ import { formatDate } from "@/utils/helper";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Skeleton } from "./ui/skeleton";
+import { cn } from "@/lib/utils";
 
 interface Author {
   name?: string;
@@ -99,6 +101,18 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
         </button>
       </div>
     </li>
+  );
+};
+
+export const StartupCardSkeleton = () => {
+  return (
+    <>
+      {[0, 1, 2, 3, 4].map((index: number) => (
+        <li className={cn("skeleton", index)} key={index}>
+          <Skeleton className="startup-card_skeleton" />
+        </li>
+      ))}
+    </>
   );
 };
 

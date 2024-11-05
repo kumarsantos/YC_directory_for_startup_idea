@@ -1,14 +1,12 @@
 import { auth, signIn, signOut } from "@/auth";
-import Authors from "@/models/author";
-import { revalidatePath } from "next/cache";
+import { BackpackIcon, BadgeIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const Navbar = async () => {
   const session = await auth();
-
-
   return (
     <div className="px-5 py-3 bg-white shadow-sm font-work-sans">
       <nav className="flex justify-between items-center">
@@ -19,11 +17,9 @@ const Navbar = async () => {
           {session && session?.user ? (
             <>
               <Link href={"/startup/create"}>
-                <span className="py-[6px] px-2 text-white rounded-sm bg-green-500">
-                  Create
-                </span>
+                <span className="max-sm:hidden">Create</span>
+                <BadgeIcon className="size-6 sm:hidden" />
               </Link>
-
               {/* React 19 uses server side props similar to server action */}
               <form
                 action={async () => {
@@ -31,17 +27,21 @@ const Navbar = async () => {
                   await signOut({ redirectTo: "/" });
                 }}
               >
-                <button
-                  type="submit"
-                  className="py-[3px] px-2 text-white rounded-sm bg-red-500"
-                >
+                <button type="submit" className="max-sm:hidden">
                   Logout
                 </button>
+                <button type="submit" className="sm:hidden">
+                  <BackpackIcon className="size-6 sm:hidden text-red-500" />
+                </button>
               </form>
-              <Link href={"/user/" + session?.user?.id}>
-                <span className="bg-pink-200 px-3 py-2 rounded-full">
-                  {session?.user?.name?.[0]}
-                </span>
+              <Link href={"/user/" + session?.user?._id}>
+                <Avatar className="size-10">
+                  <AvatarImage
+                    src={session?.user?.image ?? ""}
+                    alt="user-profile"
+                  />
+                  <AvatarFallback> {session?.user?.name?.[0]}</AvatarFallback>
+                </Avatar>
               </Link>
             </>
           ) : (
